@@ -1,0 +1,199 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W2Pdf</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body{
+            background-color:#E9E9E9;
+            cursor: none;
+        }
+        
+        .btn{
+            background-color: #E9E9E9; 
+            color: black;
+            border-color: black;
+            transition-duration: 0.4s;
+            border-radius: 10px;
+            
+        }
+        .startbtn:hover{
+            background-color: black;
+            color: white;
+            
+        }
+        #file-label{
+            cursor: pointer;
+        }
+        @font-face {
+            font-family: 'Doky';
+            src: url('https://raw.githubusercontent.com/Rahmn-Dev/W2Pdf/main/app/templates/font/a/0x1101/D2.otf')
+          }
+        @font-face {
+            font-family: 'GLAMORA';
+            src: url('https://raw.githubusercontent.com/Rahmn-Dev/W2Pdf/main/app/templates/font/a/0x1101/G1.otf')
+          }
+          .app-cursor-dot{
+            width: 5px;
+            height: 5px;
+            background-color: rgb(0, 0, 0);
+            }
+            .app-cursor-outline{
+                width: 20px;
+                height: 20px;
+                background-color:  hsl(0, 0%, 100%);
+                mix-blend-mode: difference;
+            }
+            .app-cursor-dot,.app-cursor-outline {
+                position: fixed;
+                top:0px;
+                left: 0px;
+                transform: translate(-50%,-50%);
+                border-radius: 50%;
+                z-index: 1;
+                pointer-events: none;
+            }
+            .lenis.lenis-smooth {
+                scroll-behavior: auto;
+              }
+              
+              .lenis.lenis-smooth [data-lenis-prevent] {
+                overscroll-behavior: contain;
+              }
+              
+              .lenis.lenis-stopped {
+                overflow: hidden;
+              }
+              
+              .lenis.lenis-scrolling iframe {
+                pointer-events: none;
+              }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+              <div class="col-4 pt-1">
+                <a href="https://www.rahmn.asia" style="text-decoration:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="87" height="49" viewBox="0 0 87 49">
+                    <text id="Rahmn" transform="translate(0 29)" font-size="30" font-family="GLAMORA"><tspan x="0" y="0">Rahmn</tspan></text>
+                  </svg>
+                </a>
+              </div>
+              <div class="col-4 text-center">
+                <a class="blog-header-logo text-dark" href="https://github.com/Rahmn-Dev/W2Pdf" style="text-decoration: none;">Github</a>
+              </div>
+              <div class="col-4 d-flex justify-content-end align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="61" height="49" viewBox="0 0 61 49">
+                    <text id="_2024" data-name="2024" transform="translate(0 29)" font-size="30" font-family="GLAMORA"><tspan x="0" y="0">2024</tspan></text>
+                  </svg>
+                  
+              </div>
+            </div>
+          </header>
+          <div class="row row-12">
+           
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col col-12" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        ">Upload your PDF</div>
+            <div class="col col-12" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        " >
+        <div class="box">
+            {% render_field form.pdf_file accept=".pdf" type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple="" style="display:none" %}
+            <label for="file-7" id="file-label" style="
+            border-radius: 10px;
+            padding: 10px;
+            border-color: black;
+            background-color: #D2D2D2;
+            /* border: 2px solid black; */
+        "><span>{{form.pdf_file.path}}</span> <strong style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    "><lord-icon
+            src="https://cdn.lordicon.com/fowixcuo.json"
+            trigger="hover"
+            target="#file-label"
+            style="width:25px;height:25px">
+        </lord-icon> Choose a file…</strong></label>
+        </div>
+        </div>
+            <div class="col col-12" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            margin-bottom:50px;
+        "> <button class="btn startbtn"  type="submit" style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        flex-wrap: nowrap;
+    "> <lord-icon
+    src="https://cdn.lordicon.com/pyzlgcfb.json"
+    trigger="hover"
+    target=".startbtn"
+    stroke="bold"
+    style="width:25px;height:25px" colors="primary:#109121,secondary:#ffffff">
+</lord-icon> Start</button></div>
+            
+           
+        </form>
+        </div>
+        <div class="row row-12">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1274" height="382" viewBox="0 0 1274 382">
+                <text id="W2Pdf" transform="translate(4 302)" font-size="400" font-family="DokyRegular, Doky"><tspan x="0" y="0">W2Pdf</tspan></text>
+              </svg>
+              
+        </div>
+    </div>
+    <div class="app-cursor-dot" data-cursor-dot ></div>
+    <div class="app-cursor-outline" data-cursor-outline ></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha512-aNMyYYxdIxIaot0Y1/PLuEu3eipGCmsEUBrUq+7aVyPGMFH8z0eTP0tkqAvv34fzN6z+201d3T8HPb1svWSKHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script>
+      
+        document.getElementById('file-7').addEventListener('change', function(event) {
+            var fileName = event.target.files[0].name;
+            var firstName = fileName.split(' ')[0]; 
+            var lastName = fileName.split(' ').pop(); 
+                        var shortenedName = firstName ; 
+            document.getElementById('file-label').innerHTML = '<span>' + shortenedName + '</span> <strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> Choose a file…</strong>';
+        });
+        const _0x46dcb1=_0x1778;(function(_0x1f2644,_0xb27f73){const _0x2560b4=_0x1778,_0x6e2f1=_0x1f2644();while(!![]){try{const _0x39548c=parseInt(_0x2560b4(0x16e))/0x1*(-parseInt(_0x2560b4(0x180))/0x2)+parseInt(_0x2560b4(0x189))/0x3+-parseInt(_0x2560b4(0x188))/0x4+-parseInt(_0x2560b4(0x184))/0x5+-parseInt(_0x2560b4(0x177))/0x6*(parseInt(_0x2560b4(0x18b))/0x7)+-parseInt(_0x2560b4(0x172))/0x8*(parseInt(_0x2560b4(0x17f))/0x9)+parseInt(_0x2560b4(0x18a))/0xa;if(_0x39548c===_0xb27f73)break;else _0x6e2f1['push'](_0x6e2f1['shift']());}catch(_0x473ee4){_0x6e2f1['push'](_0x6e2f1['shift']());}}}(_0x11ed,0x2d8e4));function _0x1778(_0x23f3f5,_0x5ae589){const _0x2b1a57=_0x11ed();return _0x1778=function(_0x64023,_0x1d215e){_0x64023=_0x64023-0x16d;let _0x2bfad5=_0x2b1a57[_0x64023];return _0x2bfad5;},_0x1778(_0x23f3f5,_0x5ae589);}const _0x47b440=(function(){let _0x38801f=!![];return function(_0x45fd10,_0x3313a0){const _0x4d5dc5=_0x38801f?function(){const _0x4ad6e6=_0x1778;if(_0x3313a0){const _0x52c7a0=_0x3313a0[_0x4ad6e6(0x174)](_0x45fd10,arguments);return _0x3313a0=null,_0x52c7a0;}}:function(){};return _0x38801f=![],_0x4d5dc5;};}()),_0x4b2051=_0x47b440(this,function(){const _0x30d9ec=_0x1778;return _0x4b2051[_0x30d9ec(0x187)]()['search'](_0x30d9ec(0x178))[_0x30d9ec(0x187)]()['constructor'](_0x4b2051)[_0x30d9ec(0x182)]('(((.+)+)+)+$');});_0x4b2051();const _0x1d215e=(function(){let _0x51e911=!![];return function(_0x1e9a88,_0x19c040){const _0x1f6424=_0x51e911?function(){const _0x193516=_0x1778;if(_0x19c040){const _0x118ee6=_0x19c040[_0x193516(0x174)](_0x1e9a88,arguments);return _0x19c040=null,_0x118ee6;}}:function(){};return _0x51e911=![],_0x1f6424;};}()),_0x64023=_0x1d215e(this,function(){const _0x123172=_0x1778;let _0x4121bc;try{const _0x4532a8=Function(_0x123172(0x173)+_0x123172(0x176)+');');_0x4121bc=_0x4532a8();}catch(_0x2c9625){_0x4121bc=window;}const _0x9ed7d5=_0x4121bc[_0x123172(0x17d)]=_0x4121bc[_0x123172(0x17d)]||{},_0x1a1141=[_0x123172(0x171),_0x123172(0x16f),'info',_0x123172(0x17b),'exception','table',_0x123172(0x17c)];for(let _0x3998d2=0x0;_0x3998d2<_0x1a1141[_0x123172(0x179)];_0x3998d2++){const _0x533a2e=_0x1d215e['constructor'][_0x123172(0x181)][_0x123172(0x170)](_0x1d215e),_0x2b915d=_0x1a1141[_0x3998d2],_0x5ece8a=_0x9ed7d5[_0x2b915d]||_0x533a2e;_0x533a2e[_0x123172(0x17a)]=_0x1d215e[_0x123172(0x170)](_0x1d215e),_0x533a2e['toString']=_0x5ece8a['toString'][_0x123172(0x170)](_0x5ece8a),_0x9ed7d5[_0x2b915d]=_0x533a2e;}});function _0x11ed(){const _0x43c575=['19232YrugIP','prototype','search','forwards','1119790UYlYAv','querySelector','left','toString','1399004ShCNbT','107313HhezCR','8545220VcaaVI','237209JEJnLh','style','3yxlpmv','warn','bind','log','536fZRvFX','return\x20(function()\x20','apply','clientX','{}.constructor(\x22return\x20this\x22)(\x20)','12oqYgbi','(((.+)+)+)+$','length','__proto__','error','trace','console','addEventListener','4482DObZwr'];_0x11ed=function(){return _0x43c575;};return _0x11ed();}_0x64023();const cursorDot=document[_0x46dcb1(0x185)]('[data-cursor-dot'),cursorOutline=document[_0x46dcb1(0x185)]('[data-cursor-outline]');window[_0x46dcb1(0x17e)]('mousemove',function(_0x54911e){const _0xe85a39=_0x46dcb1,_0xfa3f24=_0x54911e[_0xe85a39(0x175)],_0x245d80=_0x54911e['clientY'];cursorDot[_0xe85a39(0x16d)][_0xe85a39(0x186)]=_0xfa3f24+'px',cursorDot['style']['top']=_0x245d80+'px',cursorOutline['animate']({'left':_0xfa3f24+'px','top':_0x245d80+'px'},{'duration':0x3e8,'fill':_0xe85a39(0x183)});});
+function _0x310d(){const _0x1284f4=['return\x20(function()\x20','1152174drisua','scroll','66LBSrTz','73451lZeOJG','7633120JdhRBK','(((.+)+)+)+$','501988IKHREb','{}.constructor(\x22return\x20this\x22)(\x20)','toString','add','32068IBJtYt','873459ImWFSo','table','constructor','apply','prototype','136CEcmDE','info','length','10GyYkst','bind','search','raf','52870QrZzvR'];_0x310d=function(){return _0x1284f4;};return _0x310d();}function _0x2f03(_0x390736,_0x5d0779){const _0x408ef6=_0x310d();return _0x2f03=function(_0x473429,_0x1f4f94){_0x473429=_0x473429-0x132;let _0x400f84=_0x408ef6[_0x473429];return _0x400f84;},_0x2f03(_0x390736,_0x5d0779);}const _0x186cc9=_0x2f03;(function(_0xc541e8,_0x7cfb49){const _0x4d771f=_0x2f03,_0x126477=_0xc541e8();while(!![]){try{const _0x5ad44e=parseInt(_0x4d771f(0x13b))/0x1*(parseInt(_0x4d771f(0x144))/0x2)+-parseInt(_0x4d771f(0x14a))/0x3+parseInt(_0x4d771f(0x137))/0x4+-parseInt(_0x4d771f(0x148))/0x5*(parseInt(_0x4d771f(0x133))/0x6)+parseInt(_0x4d771f(0x134))/0x7*(-parseInt(_0x4d771f(0x141))/0x8)+-parseInt(_0x4d771f(0x13c))/0x9+parseInt(_0x4d771f(0x135))/0xa;if(_0x5ad44e===_0x7cfb49)break;else _0x126477['push'](_0x126477['shift']());}catch(_0x58bde4){_0x126477['push'](_0x126477['shift']());}}}(_0x310d,0x42bc1));const _0x209ff9=(function(){let _0x2e9b6d=!![];return function(_0x4d68b0,_0xb70c04){const _0x3b5be4=_0x2e9b6d?function(){const _0x21cca2=_0x2f03;if(_0xb70c04){const _0x2ee168=_0xb70c04[_0x21cca2(0x13f)](_0x4d68b0,arguments);return _0xb70c04=null,_0x2ee168;}}:function(){};return _0x2e9b6d=![],_0x3b5be4;};}()),_0x463d85=_0x209ff9(this,function(){const _0x53a6de=_0x2f03;return _0x463d85[_0x53a6de(0x139)]()[_0x53a6de(0x146)](_0x53a6de(0x136))['toString']()[_0x53a6de(0x13e)](_0x463d85)[_0x53a6de(0x146)]('(((.+)+)+)+$');});_0x463d85();const _0x1f4f94=(function(){let _0x617528=!![];return function(_0x5b4401,_0x1a9d6c){const _0x234fa9=_0x617528?function(){const _0x5aaa72=_0x2f03;if(_0x1a9d6c){const _0x298d1f=_0x1a9d6c[_0x5aaa72(0x13f)](_0x5b4401,arguments);return _0x1a9d6c=null,_0x298d1f;}}:function(){};return _0x617528=![],_0x234fa9;};}()),_0x473429=_0x1f4f94(this,function(){const _0x28bb5d=_0x2f03,_0x5a01b6=function(){const _0xcd91d8=_0x2f03;let _0x341c55;try{_0x341c55=Function(_0xcd91d8(0x149)+_0xcd91d8(0x138)+');')();}catch(_0x374f49){_0x341c55=window;}return _0x341c55;},_0x2ff7c7=_0x5a01b6(),_0x59224d=_0x2ff7c7['console']=_0x2ff7c7['console']||{},_0x2224a5=['log','warn',_0x28bb5d(0x142),'error','exception',_0x28bb5d(0x13d),'trace'];for(let _0x3c54a3=0x0;_0x3c54a3<_0x2224a5[_0x28bb5d(0x143)];_0x3c54a3++){const _0x541b5f=_0x1f4f94[_0x28bb5d(0x13e)][_0x28bb5d(0x140)][_0x28bb5d(0x145)](_0x1f4f94),_0x2edf0a=_0x2224a5[_0x3c54a3],_0x15269d=_0x59224d[_0x2edf0a]||_0x541b5f;_0x541b5f['__proto__']=_0x1f4f94[_0x28bb5d(0x145)](_0x1f4f94),_0x541b5f[_0x28bb5d(0x139)]=_0x15269d['toString'][_0x28bb5d(0x145)](_0x15269d),_0x59224d[_0x2edf0a]=_0x541b5f;}});_0x473429();const lenis=new Lenis();lenis['on'](_0x186cc9(0x132),ScrollTrigger['update']),gsap['ticker'][_0x186cc9(0x13a)](_0x509cfc=>{const _0x6620bb=_0x186cc9;lenis[_0x6620bb(0x147)](_0x509cfc*0x3e8);}),gsap['ticker']['lagSmoothing'](0x0);
+    </script>
+</body>
+</html>

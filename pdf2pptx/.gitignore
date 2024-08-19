@@ -1,0 +1,6 @@
+
+slides.pdf
+*.pyc
+*.egg-info
+dist
+build
